@@ -1,0 +1,102 @@
+/* style.css */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+/* Global Settings */
+.stApp {
+    background-color: #f4f6f5;
+    font-family: 'Inter', sans-serif;
+    color: #061d12;
+}
+
+/* Hide default streamlit header/footer */
+header {visibility: hidden;}
+#MainMenu {visibility: hidden;}
+footer {visibility: hidden;}
+
+/* Custom Titles */
+h1 {
+    color: #061d12;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+h2, h3 {
+    color: #061d12;
+    font-weight: 600;
+}
+
+/* Vibrant Green Accents */
+.accent-text {
+    color: #00b159;
+}
+
+/* Glassmorphism Cards */
+.css-1r6slb0, .css-12oz5g7, div[data-testid="stVerticalBlock"] > div > div > div {
+    background: rgba(255, 255, 255, 0.85);
+    border-radius: 12px;
+    padding: 15px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    border: 1px solid rgba(0,0,0,0.05);
+    backdrop-filter: blur(10px);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+div[data-testid="stVerticalBlock"] > div > div > div:hover {
+    box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+}
+
+/* Custom Buttons */
+.stButton > button {
+    background-color: #00b159;
+    color: white;
+    border-radius: 8px;
+    border: none;
+    font-weight: 600;
+    padding: 0.5rem 1rem;
+    width: 100%;
+    transition: background-color 0.3s ease;
+}
+
+.stButton > button:hover {
+    background-color: #008f47;
+    color: white;
+    border-color: #008f47;
+}
+
+.stButton > button:active {
+    background-color: #007038;
+}
+
+/* Secondary Button / Randomize */
+.random-btn > button {
+    background-color: transparent;
+    color: #00b159;
+    border: 1px solid #00b159;
+}
+.random-btn > button:hover {
+    background-color: #e5f7ed;
+    color: #00b159;
+}
+
+/* Match Cards / Team Selectors */
+.match-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 10px;
+    background: white;
+}
+.match-team {
+    padding: 8px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+}
+.match-team:hover {
+    background-color: #f0f0f0;
+}
+.match-team.selected {
+    background-color: #e5f7ed;
+    color: #00b159;
+    font-weight: bold;
+    border-left: 4px solid #00b159;
+}
