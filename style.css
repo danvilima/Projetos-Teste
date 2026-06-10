@@ -100,3 +100,6 @@ div[data-testid="stVerticalBlock"] > div > div > div:hover {
     font-weight: bold;
     border-left: 4px solid #00b159;
 }
+
+div[data-testid="stCheckbox"] label p { color: #061d12 !important; font-weight: 600; }
+div[data-testid="stCheckbox"] label span { color: #061d12 !important; font-weight: 600; }
