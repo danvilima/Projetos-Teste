@@ -12,7 +12,7 @@ def init_supabase():
         print(f"Error initializing Supabase: {e}")
         return None
 
-def save_simulation(champion, runner_up, third_place, user_name="Anonymous"):
+def save_simulation(champion, runner_up, third_place, user_name, group_predictions, third_place_predictions, knockout_predictions):
     supabase: Client = init_supabase()
     if not supabase:
         return False
@@ -22,7 +22,10 @@ def save_simulation(champion, runner_up, third_place, user_name="Anonymous"):
             "champion": champion,
             "runner_up": runner_up,
             "third_place": third_place,
-            "user_name": user_name
+            "user_name": user_name,
+            "group_predictions": group_predictions,
+            "third_place_predictions": third_place_predictions,
+            "knockout_predictions": knockout_predictions
         }
         supabase.table("simulations").insert(data).execute()
         return True

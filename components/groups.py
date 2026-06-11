@@ -1,6 +1,7 @@
 import streamlit as st
 from data import GROUPS
 from state_manager import randomize_group
+from components.utils import render_team_html
 
 def render_groups():
     st.markdown("<h2>Grupos</h2>", unsafe_allow_html=True)
@@ -27,6 +28,7 @@ def render_groups():
                     opts1 = [None] + teams
                     idx1 = opts1.index(s1) if s1 in opts1 else 0
                     pos1 = st.selectbox("1º Colocado", opts1, index=idx1, key=f"sel_{g}_1", label_visibility="collapsed", format_func=lambda x: "1° lugar" if x is None else f"1° lugar - {x}")
+                    st.markdown(render_team_html(pos1, extra_classes="group-selection-card"), unsafe_allow_html=True)
                     if pos1 != s1:
                         st.session_state[f"group_{g}_1"] = pos1
                         if pos1 == s2: st.session_state[f"group_{g}_2"] = None
@@ -37,6 +39,7 @@ def render_groups():
                     opts2 = [None] + [t for t in teams if t != st.session_state[f"group_{g}_1"]]
                     idx2 = opts2.index(s2) if s2 in opts2 else 0
                     pos2 = st.selectbox("2º Colocado", opts2, index=idx2, key=f"sel_{g}_2", label_visibility="collapsed", format_func=lambda x: "2° lugar" if x is None else f"2° lugar - {x}")
+                    st.markdown(render_team_html(pos2, extra_classes="group-selection-card"), unsafe_allow_html=True)
                     if pos2 != s2:
                         st.session_state[f"group_{g}_2"] = pos2
                         if pos2 == s3: st.session_state[f"group_{g}_3"] = None
@@ -46,6 +49,7 @@ def render_groups():
                     opts3 = [None] + [t for t in teams if t not in [st.session_state[f"group_{g}_1"], st.session_state[f"group_{g}_2"]]]
                     idx3 = opts3.index(s3) if s3 in opts3 else 0
                     pos3 = st.selectbox("3º Colocado", opts3, index=idx3, key=f"sel_{g}_3", label_visibility="collapsed", format_func=lambda x: "3° lugar" if x is None else f"3° lugar - {x}")
+                    st.markdown(render_team_html(pos3, extra_classes="group-selection-card"), unsafe_allow_html=True)
                     if pos3 != s3:
                         st.session_state[f"group_{g}_3"] = pos3
                         st.rerun()

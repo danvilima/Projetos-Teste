@@ -1,6 +1,7 @@
 import streamlit as st
 from data import GROUPS
 from matching_algorithm import match_third_places
+from components.utils import render_team_html
 
 def render_third_places():
     st.markdown("<h2>Seleção dos Terceiros Colocados</h2>", unsafe_allow_html=True)
@@ -23,13 +24,16 @@ def render_third_places():
     for idx, (g, t) in enumerate(available_thirds):
         col = cols[idx % 4]
         with col:
+            st.markdown(f"<div class='third-place-card'>", unsafe_allow_html=True)
+            st.markdown(render_team_html(t), unsafe_allow_html=True)
             is_checked = (g, t) in selected
-            if st.checkbox(f"{t} (Gr. {g})", value=is_checked, key=f"chk_3rd_{g}"):
+            if st.checkbox(f"Gr. {g}", value=is_checked, key=f"chk_3rd_{g}"):
                 if (g, t) not in selected:
                     selected.append((g, t))
             else:
                 if (g, t) in selected:
                     selected.remove((g, t))
+            st.markdown("</div>", unsafe_allow_html=True)
                     
     st.session_state["selected_thirds"] = selected
     

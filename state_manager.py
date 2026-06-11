@@ -24,6 +24,11 @@ def init_state():
     if "third_place_matching" not in st.session_state:
         st.session_state["third_place_matching"] = None
 
+    # User Info
+    if "user_name" not in st.session_state:
+        st.session_state["user_name"] = ""
+
+
 def randomize_group(g):
     teams = GROUPS[g].copy()
     random.shuffle(teams)

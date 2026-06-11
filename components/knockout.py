@@ -1,6 +1,7 @@
 import streamlit as st
 from data import KNOCKOUT_BRACKET, R32_FIXED, GROUPS
 from state_manager import set_knockout_winner
+from components.utils import render_team_html
 
 
 def get_r32_team(slot_name):
@@ -19,33 +20,39 @@ def get_r32_team(slot_name):
 
 def render_match_card(match_id, team_home, team_away, col, title="Match"):
     with col:
-        st.markdown(
-            f"<div class='match-card'><b>{title} {match_id}</b>", unsafe_allow_html=True
-        )
-
         winner = st.session_state["knockout"].get(match_id)
+        is_finished = winner is not None
+
+        st.markdown(
+            f"<div class='match-card {'match-completed' if is_finished else ''}'>", unsafe_allow_html=True
+        )
+        st.markdown(f"<div class='match-header'>{title} #{match_id}</div>", unsafe_allow_html=True)
 
         if winner:
-            st.caption(f"Selecionado: {winner}")
+            st.markdown(f"<div class='match-winner-label'>Vencedor: {winner}</div>", unsafe_allow_html=True)
 
+        # Home Team
+        st.markdown(render_team_html(team_home, extra_classes="knockout-team"), unsafe_allow_html=True)
         if st.button(
-            team_home or "TBD",
+            "Selecionar" if team_home else "TBD",
             key=f"m_{match_id}_home",
-            disabled=not team_home,
+            disabled=not team_home or winner == team_home,
             use_container_width=True,
         ):
             set_knockout_winner(match_id, team_home)
             st.rerun()
 
         st.markdown(
-            "<div style='text-align: center; color: #888;'>vs</div>",
+            "<div style='text-align: center; color: #888; font-size: 12px; margin: 4px 0;'>vs</div>",
             unsafe_allow_html=True,
         )
 
+        # Away Team
+        st.markdown(render_team_html(team_away, extra_classes="knockout-team"), unsafe_allow_html=True)
         if st.button(
-            team_away or "TBD",
+            "Selecionar" if team_away else "TBD",
             key=f"m_{match_id}_away",
-            disabled=not team_away,
+            disabled=not team_away or winner == team_away,
             use_container_width=True,
         ):
             set_knockout_winner(match_id, team_away)
